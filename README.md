@@ -23,10 +23,6 @@ Download or clone repo to local, execute:
 ```
 npm install
 ```
-* Run 'build' script to generate public/bundle.js
-```
-npm run build
-```
 * Start server // localhost:3000
 ```
 npm start
