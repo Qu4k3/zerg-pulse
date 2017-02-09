@@ -1,11 +1,11 @@
-# Zerg Pulse
+# Zerg Pulse https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png
 Multiplayer web game, enter the website to start the game, or create a room website-url/room-name 
 
-* ``W, A, S, D`` to move 
+* Move your mouse to control your player
 
-* ``M`` to use PULSE 
+* ``W`` to use PULSE 
 
-* ``K`` to use INVULNERABILITY 
+* ``Space`` to use INVULNERABILITY 
 
 
 ## Prerequisites
@@ -27,3 +27,6 @@ npm install
 ```
 npm start
 ```
+
+## Credits
+Favicon image by [Searhere](http://searhere.deviantart.com/art/Zergling-510555517)
