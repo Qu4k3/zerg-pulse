@@ -23,7 +23,7 @@ Download or clone repo to local, execute:
 ```
 npm install
 ```
-* Run 'build' script
+* Run 'build' script to generate public/bundle.js
 ```
 npm run build
 ```
