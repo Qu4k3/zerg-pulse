@@ -9,19 +9,23 @@
             overflow: hidden;
             font-family: "Trebuchet MS", Helvetica, sans-serif;
         }
+
         #leaderBoard {
             position: fixed;
             top: 20px;
             right: 20px;
             padding: 10px;
             color: #fff;
-            font-family: monospace;
-            font-size: 12px;
+            /*font-family: monospace;*/
+            font-weight: bold;
+            letter-spacing: 1px;
+            font-size: 18px;
             line-height: 14px;
             background-color: rgba(0, 0, 0, 0.6);
 
             border-radius: 3px;
         }
+
         #progressBar1 {
             position: fixed;
             bottom: 80px;
@@ -31,6 +35,7 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 3px;
         }
+
         #progressBar2 {
             position: fixed;
             bottom: 40px;
@@ -40,18 +45,21 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 3px;
         }
+
         #actionsStatus {
             width: 50%;
             height: 100%;
-            background-color: darkslategray;
+            background-color: mediumseagreen;
             border-radius: 3px;
         }
+
         #abilityStatus {
             width: 33%;
             height: 100%;
-            background-color: blueviolet;
+            background-color: darkorange;
             border-radius: 3px;
         }
+
         #label {
             text-align: center;
             line-height: 25px;
@@ -62,6 +70,7 @@
             left: 0;
             right:0;
         }
+
     </style>
 </head>
 <body>
@@ -78,8 +87,7 @@
     <section id="progressBar2">
         <div id="label">INVULNERABLE</div>
         <section id="abilityStatus"></section>
-    </section> 
-    
+    </section>    
     
     <script src="/socket.io/socket.io.js"></script>
     <script src="bundle.js"></script>

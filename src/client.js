@@ -123,7 +123,7 @@ function gameRenderer (game) {
   // render coins
   for (let coinId in game.coins) {
     const coin = game.coins[coinId]
-    ctx.fillStyle = 'yellow'
+    ctx.fillStyle = 'purple' // blueviolet
     ctx.beginPath()
     ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
     ctx.fill()
