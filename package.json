@@ -1,0 +1,36 @@
+{
+  "name": "dead-reckoning-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "prebuild": "npm run test",
+    "build": "browserify src/game.js -o public/bundle.js",
+    "watch": "chokidar 'src/**/*.js' -c 'npm run build'",
+    "test": "standard src/**/*.js",
+    "postinstall": "npm run build",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dasilvacontin/dead-reckoning-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dasilvacontin/dead-reckoning-test/issues"
+  },
+  "homepage": "https://github.com/dasilvacontin/dead-reckoning-test#readme",
+  "dependencies": {
+    "@dasilvacontin/keyboard": "^1.0.2",
+    "deep-equal": "^1.0.1",
+    "express": "^4.14.1",
+    "randomcolor": "^0.4.4",
+    "socket.io": "^1.7.2"
+  },
+  "devDependencies": {
+    "browserify": "^14.0.0",
+    "chokidar-cli": "^1.2.0",
+    "standard": "^8.6.0"
+  }
+}
