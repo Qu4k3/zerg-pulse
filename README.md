@@ -16,6 +16,7 @@ NodeJS & npm
 ### Installing
 
 Download or clone repo to local, execute:
+
 Install package defines in ``package.json``
 ```
 npm install
