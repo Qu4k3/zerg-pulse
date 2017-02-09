@@ -19,7 +19,7 @@ Check instalation: *node --version* / *npm --version*
 
 Download or clone repo to local, execute:
 
-* Install package defines in ``package.json``
+* Install packages defined in ``package.json``
 ```
 npm install
 ```
