@@ -1,5 +1,5 @@
 # Zerg Pulse
-Multiplayer web game, enter the website to inicialyze the game, or create a room website-url/room-name 
+Multiplayer web game, enter the website to <start> the game, or create a room website-url/room-name 
 
 * ``W, A, S, D`` to move 
 
