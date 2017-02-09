@@ -1,7 +1,13 @@
 /* globals requestAnimationFrame, io */
 const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
-const { ACCEL, COIN_RADIUS, PLAYER_EDGE } = require('./constants.js')
+const {
+  ACCEL,
+  COIN_RADIUS,
+  PLAYER_EDGE,
+  WORLD_X,
+  WORLD_Y
+} = require('./constants.js')
 
 const socket = io()
 
@@ -104,15 +110,15 @@ function updateInputs () {
 }
 
 const canvas = document.createElement('canvas')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = WORLD_X
+canvas.height = WORLD_Y
 document.body.appendChild(canvas)
 
 const ctx = canvas.getContext('2d')
 
 function gameRenderer (game) {
-  ctx.fillStyle = 'white'
-  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
+  ctx.fillStyle = '#778899'
+  ctx.fillRect(0, 0, WORLD_X, WORLD_Y)
 
   // render coins
   for (let coinId in game.coins) {
@@ -135,19 +141,20 @@ function gameRenderer (game) {
       ctx.strokeRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
     }
 
-    ctx.fillStyle = 'white'
+    ctx.fillStyle = '#fff'
     ctx.textAlign = 'center'
-    ctx.font = '20px Arial'
+    ctx.font = '20px Helvetica'
     ctx.fillText(score, 0, 7)
     ctx.restore()
   }
 
   // render `ping` and `clockDiff`
-  ctx.fillStyle = 'black'
+  ctx.fillStyle = '#fff'
+  ctx.fillWeight = 'bold'
   ctx.textAlign = 'left'
-  ctx.font = '20px Arial'
-  ctx.fillText(`ping: ${ping}`, 15, 30)
-  ctx.fillText(`clockDiff: ${clockDiff}`, 15, 60)
+  ctx.font = '18px Helvetica'
+  ctx.fillText(`ping: ${ping}`, window.innerWidth - 175, window.innerHeight - 70)
+  ctx.fillText(`clockDiff: ${clockDiff}`, window.innerWidth - 175, window.innerHeight - 40)
 }
 
 let lastLogic = Date.now()
