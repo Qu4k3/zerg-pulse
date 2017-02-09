@@ -1,5 +1,5 @@
 # Zerg Pulse
-Multiplayer web game, enter the website to <start> the game, or create a room website-url/room-name 
+Multiplayer web game, enter the website to start the game, or create a room website-url/room-name 
 
 * ``W, A, S, D`` to move 
 
@@ -12,7 +12,7 @@ Multiplayer web game, enter the website to <start> the game, or create a room we
 
 **Node.js** / **npm**
 
-Check instalation: *node --version* / *npm --version*
+Check installation: *node --version* / *npm --version*
 
 
 ## Installing
