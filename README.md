@@ -17,15 +17,15 @@ NodeJS & npm
 
 Download or clone repo to local, execute:
 
-Install package defines in ``package.json``
+* Install package defines in ``package.json``
 ```
 npm install
 ```
-Run 'build' script
+* Run 'build' script
 ```
 npm run build
 ```
-Start server // localhost:3000
+* Start server // localhost:3000
 ```
 npm start
 ```
