@@ -117,11 +117,15 @@ const ctx = canvas.getContext('2d')
 
 function gameRenderer (game) {
   ctx.fillStyle = '#3B3B3B'
+  //ctx.shadowBlur += 0.25
+  //ctx.shadowColor = 'rgba(0,0,0,0.4)'
   ctx.fillRect(0, 0, WORLD_X, WORLD_Y)
 
   for (let coinId in game.coins) {
     const coin = game.coins[coinId]
-    ctx.fillStyle = 'yellow'
+    //ctx.shadowBlur += 0.25
+    //ctx.shadowColor = 'rgba(0,0,0,0.6)'
+    ctx.fillStyle = '#006600'
     ctx.beginPath()
     ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
     ctx.fill()

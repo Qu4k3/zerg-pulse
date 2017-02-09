@@ -20,41 +20,51 @@
             font-family: monospace;
             font-size: 12px;
             line-height: 14px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         #progressBar1 {
             position: fixed;
-            bottom: 60px;
+            bottom: 80px;
             left: 60px;
-            padding: 10px;
 
-            width: 100%;
-            height: 30px;
-            background-color: rgba(0, 0, 0, 0.5);
+            width: 300px;
+            height: 25px;
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         #progressBar2 {
             position: fixed;
-            bottom: 20px;
+            bottom: 40px;
             left: 60px;
-            padding: 10px;
 
-            width: 100%;
-            height: 30px;
-            background-color: rgba(0, 0, 0, 0.5);
+            width: 300px;
+            height: 25px;
+            background-color: rgba(0, 0, 0, 0.8);
         }
 
         #actionsStatus {
-            width: 90%;
+            width: 50%;
             height: 100%;
-            background-color: darkgreen;
+            background-color: darkslategray;
         }
 
         #abilityStatus {
             width: 33%;
             height: 100%;
-            background-color: green;
+            background-color: blueviolet;
+        }
+
+        #label {
+            text-align: center;
+            line-height: 25px;
+            color: white;
+            letter-spacing: 1px;
+            font-weight: bold;
+
+            position: absolute;
+            left: 0;
+            right:0;
         }
 
     </style>
@@ -66,15 +76,13 @@
     </section>
 
     <section id="progressBar1">
-        <section id="actionsStatus" style="height:80px; width:200px">
-
-        </section>
+        <div id="label">PULSE</div>
+        <section id="actionsStatus"></section>
     </section>
 
     <section id="progressBar2">
-        <section id="abilityStatus" style="height:80px; width:200px">
-
-        </section>
+        <div id="label">INVULNERABLE</div>
+        <section id="abilityStatus"></section>
     </section> 
     
     
