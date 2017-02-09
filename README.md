@@ -10,7 +10,7 @@ Multiplayer web game, enter the website to inicialyze the game, or create a room
 
 ### Prerequisites
 
-NodeJS & npm
+Node.js / npm (Check instalation: node --version / npm --version)
 
 
 ### Installing
