@@ -1,16 +1,10 @@
 // http://socket.io/get-started/chat/
 const express = require('express')
-var app = express()
-var http = require('http').Server(app)
-var io = require('socket.io')(http)
-const randomColor = require('randomcolor')
-const {
-  ACCEL,
-  COIN_RADIUS,
-  PLAYER_EDGE,
-  WORLD_X,
-  WORLD_Y
-} = require('./constants.js')
+const app = express()
+const http = require('http').Server(app)
+const io = require('socket.io')(http)
+const path = require('path')
+const GameServer = require('./GameServer.js')
 
 /*
 // middleware
@@ -22,105 +16,25 @@ app.use(function (req, res, next) {
 
 app.use(express.static('public'))
 
-class GameServer {
-  constructor () {
-    this.players = {}
-    this.coins = {}
-    this.nextCoinId = 0
-    this.lastCoinSpawn = Date.now()
+const games = {}
+const gameForPlayer = {} // socket.id => game
 
-    for (let i = 0; i < 10; ++i) {
-      const coin = {
-        id: this.nextCoinId++,
-        x: Math.random() * WORLD_X,
-        y: Math.random() * WORLD_Y
-      }
-      this.coins[coin.id] = coin
-    }
-  }
-
-  onPlayerConnected (socket) {
-    console.log(`${socket.id} connected`)
-    const inputs = {
-      LEFT_ARROW: false,
-      RIGHT_ARROW: false,
-      UP_ARROW: false,
-      DOWN_ARROW: false
-    }
-
-    const player = {
-      x: Math.random() * WORLD_X,
-      y: Math.random() * WORLD_Y,
-      vx: 0,
-      vy: 0,
-      color: randomColor(),
-      id: socket.id,
-      score: 0,
-      inputs
-    }
-    this.players[socket.id] = player
-
-    socket.emit('world:init', this.players, this.coins, socket.id)
-
-    // so that the new players appears on other people's screen
-    this.onPlayerMoved(socket, inputs)
-  }
-
-  onPlayerMoved (socket, inputs) {
-    console.log(inputs)
-    console.log(`${new Date()}: ${socket.id} moved`)
-    const player = this.players[socket.id]
-    player.timestamp = Date.now()
-    player.inputs = inputs
-    io.sockets.emit('playerMoved', player)
-  }
-
-  onPlayerDisconnected (socket) {
-    console.log(`${socket.id} disconnected`)
-    delete this.players[socket.id]
-    socket.broadcast.emit('playerDisconnected', socket.id)
-  }
-
-  logic (delta) {
-    const vInc = ACCEL * delta
-    for (let playerId in this.players) {
-      const player = this.players[playerId]
-      const { inputs } = player
-      if (inputs.LEFT_ARROW) player.vx -= vInc
-      if (inputs.RIGHT_ARROW) player.vx += vInc
-      if (inputs.UP_ARROW) player.vy -= vInc
-      if (inputs.DOWN_ARROW) player.vy += vInc
-
-      player.x += player.vx * delta
-      player.y += player.vy * delta
-
-      for (let coinId in this.coins) {
-        const coin = this.coins[coinId]
-        const dist = Math.abs(player.x - coin.x) + Math.abs(player.y - coin.y)
-        const radiusSum = COIN_RADIUS + (PLAYER_EDGE / 2)
-        if (radiusSum > dist) {
-          delete this.coins[coinId]
-          player.score++
-          io.sockets.emit('coinCollected', player.id, coinId)
-        }
-      }
-
-      if (Date.now() - this.lastCoinSpawn > 1000) {
-        const coin = {
-          id: this.nextCoinId++,
-          x: Math.random() * WORLD_X,
-          y: Math.random() * WORLD_Y
-        }
-        this.coins[coin.id] = coin
-        this.lastCoinSpawn = Date.now()
-        io.sockets.emit('coinSpawned', coin)
-      }
-    }
-  }
-}
+app.get('/:gameId', function (req, res) {
+  res.sendFile(path.join(__dirname, '/../public/index.html'))
+})
 
 io.on('connection', function (socket) {
-  game.onPlayerConnected(socket)
+  socket.on('joinGame', (gameId) => {
+    let game = games[gameId]
+
+    if (game == null) {
+      game = new GameServer(io, gameId)
+      games[gameId] = game
+    }
+
+    gameForPlayer[socket.id] = game
+    game.onPlayerConnected(socket)
+  })
 
   // let lastPongTimestamp
   // let ping = 50
@@ -133,21 +47,23 @@ io.on('connection', function (socket) {
   })
 
   socket.on('move', (inputs) => {
+    const game = gameForPlayer[socket.id]
+    if (game == null) return
     game.onPlayerMoved(socket, inputs)
   })
 
   socket.on('disconnect', () => {
+    const game = gameForPlayer[socket.id]
+    if (game == null) return
     game.onPlayerDisconnected(socket)
   })
 })
 
-const game = new GameServer()
-let past = Date.now()
 setInterval(function () {
-  const now = Date.now()
-  const delta = now - past
-  past = now
-  game.logic(delta)
+  for (let gameId in games) {
+    const game = games[gameId]
+    game.logic()
+  }
 }, 20)
 
 http.listen(process.env.PORT || 3000, function () {

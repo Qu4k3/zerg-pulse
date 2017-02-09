@@ -1,12 +1,7 @@
 /* globals requestAnimationFrame, io */
 const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
-const { ACCEL,
-  COIN_RADIUS,
-  PLAYER_EDGE,
-  WORLD_X,
-  WORLD_Y
-} = require('./constants.js')
+const { ACCEL, COIN_RADIUS, PLAYER_EDGE } = require('./constants.js')
 
 const socket = io()
 
@@ -33,7 +28,7 @@ class GameClient {
     console.log(player)
     this.players[player.id] = player
 
-    const delta = (Date.now() + clockDiff) - player.timestamp
+    const delta = (lastLogic + clockDiff) - player.timestamp
 
         // increment position due to current velocity
         // and update our velocity accordingly
@@ -109,28 +104,26 @@ function updateInputs () {
 }
 
 const canvas = document.createElement('canvas')
-canvas.width = WORLD_X
-canvas.height = WORLD_Y
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 document.body.appendChild(canvas)
 
 const ctx = canvas.getContext('2d')
 
 function gameRenderer (game) {
-  ctx.fillStyle = '#3B3B3B'
-  // ctx.shadowBlur += 0.25
-  // ctx.shadowColor = 'rgba(0,0,0,0.4)'
-  ctx.fillRect(0, 0, WORLD_X, WORLD_Y)
+  ctx.fillStyle = 'white'
+  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
+  // render coins
   for (let coinId in game.coins) {
     const coin = game.coins[coinId]
-    // ctx.shadowBlur += 0.25
-    // ctx.shadowColor = 'rgba(0,0,0,0.6)'
-    ctx.fillStyle = '#006600'
+    ctx.fillStyle = 'yellow'
     ctx.beginPath()
     ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
     ctx.fill()
   }
 
+  // render players
   for (let playerId in game.players) {
     const { color, x, y, score } = game.players[playerId]
     ctx.save()
@@ -138,7 +131,6 @@ function gameRenderer (game) {
     ctx.fillStyle = color
     const HALF_EDGE = PLAYER_EDGE / 2
     ctx.fillRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
-    // ctx.fillRect(x - HALF_EDGE, y - HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
     if (playerId === myPlayerId) {
       ctx.strokeRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
     }
@@ -149,15 +141,22 @@ function gameRenderer (game) {
     ctx.fillText(score, 0, 7)
     ctx.restore()
   }
+
+  // render `ping` and `clockDiff`
+  ctx.fillStyle = 'black'
+  ctx.textAlign = 'left'
+  ctx.font = '20px Arial'
+  ctx.fillText(`ping: ${ping}`, 15, 30)
+  ctx.fillText(`clockDiff: ${clockDiff}`, 15, 60)
 }
 
-let past = Date.now()
+let lastLogic = Date.now()
 function gameloop () {
   requestAnimationFrame(gameloop)
 
   const now = Date.now()
-  const delta = now - past
-  past = now
+  const delta = now - lastLogic
+  lastLogic = now
 
   updateInputs()
   game.logic(delta)
@@ -175,6 +174,7 @@ function startPingHandshake () {
 setInterval(startPingHandshake, 250)
 
 socket.on('connect', function () {
+  socket.emit('joinGame', window.location.pathname)
   socket.on('world:init', function (serverPlayers, serverCoins, myId) {
     game.onWorldInit(serverPlayers, serverCoins)
     myPlayerId = myId

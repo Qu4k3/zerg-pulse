@@ -1,8 +1,5 @@
 module.exports = {
-  ACCEL: 1 / 800,
-  COIN_RADIUS: 10,
-  PLAYER_EDGE: 50,
-
-  WORLD_X: 2000,
-  WORLD_Y: 2000
+  ACCEL: 1 / 500,
+  COIN_RADIUS: 20,
+  PLAYER_EDGE: 50
 }
