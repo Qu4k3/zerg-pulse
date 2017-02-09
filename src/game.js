@@ -104,15 +104,15 @@ function updateInputs () {
 }
 
 const canvas = document.createElement('canvas')
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight
+canvas.width = WORLD_X //window.innerWidth
+canvas.height = WORLD_Y //window.innerHeight
 document.body.appendChild(canvas)
 
 const ctx = canvas.getContext('2d')
 
 function gameRenderer (game) {
   ctx.fillStyle = 'white'
-  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
+  ctx.fillRect(0, 0, WORLD_X, WORLD_Y)
 
   for (let coinId in game.coins) {
     const coin = game.coins[coinId]

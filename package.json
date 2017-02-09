@@ -1,5 +1,5 @@
 {
-  "name": "dead-reckoning-test",
+  "name": "zombie-pulse",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dasilvacontin/dead-reckoning-test.git"
+    "url": "https://github.com/Qu4k3/zombie-pulse.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/dasilvacontin/dead-reckoning-test/issues"
+    "url": "https://github.com/Qu4k3/zombie-pulse/issues"
   },
-  "homepage": "https://github.com/dasilvacontin/dead-reckoning-test#readme",
+  "homepage": "https://github.com/Qu4k3/zombie-pulse#readme",
   "dependencies": {
     "@dasilvacontin/keyboard": "^1.0.2",
     "deep-equal": "^1.0.1",
