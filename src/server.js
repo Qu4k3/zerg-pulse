@@ -32,8 +32,8 @@ class GameServer {
     for (let i = 0; i < 10; ++i) {
       const coin = {
         id: this.nextCoinId++,
-        x: Math.random() * 1000,
-        y: Math.random() * 800
+        x: Math.random() * WORLD_X,
+        y: Math.random() * WORLD_Y
       }
       this.coins[coin.id] = coin
     }
@@ -49,8 +49,8 @@ class GameServer {
     }
 
     const player = {
-      x: Math.random() * 500,
-      y: Math.random() * 500,
+      x: Math.random() * WORLD_X,
+      y: Math.random() * WORLD_Y,
       vx: 0,
       vy: 0,
       color: randomColor(),
@@ -108,8 +108,8 @@ class GameServer {
       if (Date.now() - this.lastCoinSpawn > 1000) {
         const coin = {
           id: this.nextCoinId++,
-          x: Math.random() * 500,
-          y: Math.random() * 500
+          x: Math.random() * WORLD_X,
+          y: Math.random() * WORLD_Y
         }
         this.coins[coin.id] = coin
         this.lastCoinSpawn = Date.now()
