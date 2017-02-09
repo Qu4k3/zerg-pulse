@@ -3,6 +3,6 @@ module.exports = {
   COIN_RADIUS: 10,
   PLAYER_EDGE: 50,
 
-  WORLD_X: 2500,
-  WORLD_Y: 2500
+  WORLD_X: 1500,
+  WORLD_Y: 1500
 }
