@@ -20,14 +20,14 @@ Check instalation: *node --version* / *npm --version*
 Download or clone repo to local, execute:
 
 * Install packages defined in ``package.json``
-```javascript
+```
 npm install
 ```
 * Run 'build' script
-```javascript
+```
 npm run build
 ```
 * Start server // localhost:3000
-```javascript
+```
 npm start
 ```
