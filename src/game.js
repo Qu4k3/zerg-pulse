@@ -1,7 +1,12 @@
 /* globals requestAnimationFrame, io */
 const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
-const { ACCEL, COIN_RADIUS, PLAYER_EDGE } = require('./constants.js')
+const { ACCEL,
+  COIN_RADIUS,
+  PLAYER_EDGE,
+  WORLD_X,
+  WORLD_Y
+} = require('./constants.js')
 
 const socket = io()
 
@@ -104,15 +109,15 @@ function updateInputs () {
 }
 
 const canvas = document.createElement('canvas')
-canvas.width = WORLD_X //window.innerWidth
-canvas.height = WORLD_Y //window.innerHeight
+canvas.width = window.innerWidth
+canvas.height = window.innerHeight
 document.body.appendChild(canvas)
 
 const ctx = canvas.getContext('2d')
 
 function gameRenderer (game) {
-  ctx.fillStyle = 'white'
-  ctx.fillRect(0, 0, WORLD_X, WORLD_Y)
+  ctx.fillStyle = '#3B3B3B'
+  ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
   for (let coinId in game.coins) {
     const coin = game.coins[coinId]

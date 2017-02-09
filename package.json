@@ -1,5 +1,5 @@
 {
-  "name": "zombie-pulse",
+  "name": "zerg-pulse",
   "version": "1.0.0",
   "description": "",
   "main": "src/server.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Qu4k3/zombie-pulse.git"
+    "url": "https://github.com/Qu4k3/zerg-pulse.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Qu4k3/zombie-pulse/issues"
+    "url": "https://github.com/Qu4k3/zerg-pulse/issues"
   },
-  "homepage": "https://github.com/Qu4k3/zombie-pulse#readme",
+  "homepage": "https://github.com/Qu4k3/zerg-pulse#readme",
   "dependencies": {
     "@dasilvacontin/keyboard": "^1.0.2",
     "deep-equal": "^1.0.1",

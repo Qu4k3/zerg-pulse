@@ -7,7 +7,9 @@ const randomColor = require('randomcolor')
 const {
   ACCEL,
   COIN_RADIUS,
-  PLAYER_EDGE
+  PLAYER_EDGE,
+  WORLD_X,
+  WORLD_Y
 } = require('./constants.js')
 
 /*
@@ -30,8 +32,8 @@ class GameServer {
     for (let i = 0; i < 10; ++i) {
       const coin = {
         id: this.nextCoinId++,
-        x: Math.random() * 500,
-        y: Math.random() * 500
+        x: Math.random() * 1000,
+        y: Math.random() * 800
       }
       this.coins[coin.id] = coin
     }
