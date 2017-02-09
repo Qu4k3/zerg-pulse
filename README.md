@@ -8,14 +8,14 @@ Multiplayer web game, enter the website to inicialyze the game, or create a room
 * ``K`` to use INVULNERABILITY 
 
 
-### Prerequisites
+## Prerequisites
 
-Node.js / npm
+*Node.js* / npm
 
 Check instalation: node --version / npm --version
 
 
-### Installing
+## Installing
 
 Download or clone repo to local, execute:
 
