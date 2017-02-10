@@ -30,4 +30,5 @@ npm start
 ```
 
 ## Credits
+Original code by @dasilvacotin
 Favicon image by [Searhere](http://searhere.deviantart.com/art/Zergling-510555517)
