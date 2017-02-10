@@ -3,9 +3,9 @@ Multiplayer web game, enter the website to start the game, or create a room webs
 
 * ~~Move your mouse to control your player~~
 
-* ~~``W`` to use PULSE ~~
+* ~~``W`` to use PULSE~~ 
 
-* ~~``Space`` to use INVULNERABILITY ~~
+* ~~``Space`` to use INVULNERABILITY~~
 * Arrows ``↑ ← → ↓``
 
 ## Prerequisites
