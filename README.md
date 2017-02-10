@@ -1,12 +1,13 @@
 # Zerg Pulse ![alt tag](https://github.com/Qu4k3/zerg-pulse/blob/master/public/img/zerg-small.png)
 Multiplayer web game, enter the website to start the game, or create a room website-url/room-name 
 
+* Arrows ``↑ ← → ↓``
+
 * ~~Move your mouse to control your player~~
 
 * ~~``W`` to use PULSE~~ 
 
 * ~~``Space`` to use INVULNERABILITY~~
-* Arrows ``↑ ← → ↓``
 
 ## Prerequisites
 
