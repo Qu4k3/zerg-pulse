@@ -127,6 +127,10 @@ function gameRenderer (game) {
   // render coins
   for (let coinId in game.coins) {
     const coin = game.coins[coinId]
+
+    // ctx.shadowBlur += 0.25
+    // ctx.shadowColor = 'rgba(0,0,0,0.6)'
+
     ctx.fillStyle = 'purple' // blueviolet
     ctx.beginPath()
     ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
@@ -153,6 +157,10 @@ function gameRenderer (game) {
     const { color, x, y, score } = game.players[playerId]
     ctx.save()
     // ctx.translate(x, y)
+
+    // ctx.shadowBlur += 0.25
+    // ctx.shadowColor = 'rgba(0,0,0,0.6)'
+
     ctx.fillStyle = color
     // const HALF_EDGE = PLAYER_EDGE / 2
     // ctx.fillRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
@@ -178,7 +186,7 @@ function gameRenderer (game) {
   ctx.textAlign = 'left'
   ctx.font = '18px Helvetica'
   ctx.fillText(`ping: ${ping}`, window.innerWidth - 175, window.innerHeight - 70)
-  ctx.fillText(`clockDiff: ${clockDiff}`, window.innerWidth - 175, window.innerHeight - 40)
+  // ctx.fillText(`clockDiff: ${clockDiff}`, window.innerWidth - 175, window.innerHeight - 40)
 }
 
 let lastLogic = Date.now()

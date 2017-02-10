@@ -6,6 +6,6 @@ module.exports = {
   COIN_SPAWN_DELAY: 3000,
   ZERG_SPAWN_DELAY: 1000,
 
-  WORLD_X: 1200,
-  WORLD_Y: 1200
+  WORLD_X: 2500,
+  WORLD_Y: 2500
 }
