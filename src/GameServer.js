@@ -2,7 +2,8 @@ const randomColor = require('randomcolor')
 const {
   ACCEL,
   COIN_RADIUS,
-  PLAYER_EDGE,
+  PLAYER_RADIUS,
+  COIN_SPAWN_DELAY,
   WORLD_X,
   WORLD_Y
 } = require('./constants.js')
@@ -91,7 +92,7 @@ class GameServer {
       for (let coinId in this.coins) {
         const coin = this.coins[coinId]
         const dist = Math.abs(player.x - coin.x) + Math.abs(player.y - coin.y)
-        const radiusSum = COIN_RADIUS + (PLAYER_EDGE / 2)
+        const radiusSum = COIN_RADIUS + (PLAYER_RADIUS)
         if (radiusSum > dist) {
           delete this.coins[coinId]
           player.score++
@@ -99,7 +100,7 @@ class GameServer {
         }
       }
 
-      if (Date.now() - this.lastCoinSpawn > 1000) {
+      if (Date.now() - this.lastCoinSpawn > COIN_SPAWN_DELAY) {
         const coin = {
           id: this.nextCoinId++,
           x: Math.random() * WORLD_X,

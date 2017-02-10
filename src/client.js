@@ -4,7 +4,7 @@ const deepEqual = require('deep-equal')
 const {
   ACCEL,
   COIN_RADIUS,
-  PLAYER_EDGE,
+  PLAYER_RADIUS,
   WORLD_X,
   WORLD_Y
 } = require('./constants.js')
@@ -35,6 +35,10 @@ class GameClient {
     this.players[player.id] = player
 
     const delta = (lastLogic + clockDiff) - player.timestamp
+
+    if (player.x + player.width < canvas.width) {
+      player.x = canvas.width + player.width
+    }
 
         // increment position due to current velocity
         // and update our velocity accordingly
@@ -129,22 +133,42 @@ function gameRenderer (game) {
     ctx.fill()
   }
 
+  // render box
+  /* for (let boxId in game.boxs) {
+    const box = game.boxs[boxId]
+    ctx.fillStyle = 'deepskyblue'
+    ctx.beginPath()
+    ctx.moveTo(0, 5)
+    ctx.lineTo(10, 0)
+    ctx.lineTo(20, 5)
+    ctx.lineTo(20, 15)
+    ctx.lineTo(10, 20)
+    ctx.lineTo(0, 15)
+    ctx.closePath()
+    ctx.fill()
+  } */
+
   // render players
   for (let playerId in game.players) {
     const { color, x, y, score } = game.players[playerId]
     ctx.save()
-    ctx.translate(x, y)
+    // ctx.translate(x, y)
     ctx.fillStyle = color
-    const HALF_EDGE = PLAYER_EDGE / 2
-    ctx.fillRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
+    // const HALF_EDGE = PLAYER_EDGE / 2
+    // ctx.fillRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
+    ctx.beginPath()
+    ctx.arc(x, y, PLAYER_RADIUS, 0, 2 * Math.PI)
+    ctx.fill()
     if (playerId === myPlayerId) {
-      ctx.strokeRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
+    // ctx.strokeRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
+      ctx.beginPath()
+      ctx.arc(x, y, PLAYER_RADIUS, 0, 2 * Math.PI)
+      ctx.stroke()
     }
-
     ctx.fillStyle = '#fff'
     ctx.textAlign = 'center'
     ctx.font = '20px Helvetica'
-    ctx.fillText(score, 0, 7)
+    ctx.fillText(score, x, y + 7)
     ctx.restore()
   }
 
