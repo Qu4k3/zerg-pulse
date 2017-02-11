@@ -2,7 +2,7 @@
   "name": "zerg-pulse",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.js",
+  "main": "src/server/index.js",
   "scripts": {
     "prebuild": "npm run test",
     "build": "browserify src/client/index.js -o public/bundle.js",
@@ -32,8 +32,6 @@
   "devDependencies": {
     "browserify": "^14.0.0",
     "chokidar-cli": "^1.2.0",
-    "mocha": "^3.2.0",
-    "standard": "^8.6.0",
-    "unexpected": "^10.25.0"
+    "standard": "^8.6.0"
   }
 }
