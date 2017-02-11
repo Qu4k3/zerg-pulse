@@ -1,6 +1,6 @@
 module.exports = {
   ACCEL: 1 / 800,
-  COIN_RADIUS: 20,
+  COIN_RADIUS: 12.5,
   PLAYER_EDGE: 50,
 
   COIN_SPAWN_DELAY: 200,
