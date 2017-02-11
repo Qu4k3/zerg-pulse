@@ -30,4 +30,4 @@ npm start
 ```
 
 ## Credits
-Favicon image by [Searhere](http://searhere.deviantart.com/art/Zergling-510555517)
+Sprites by [Searhere](http://searhere.deviantart.com)

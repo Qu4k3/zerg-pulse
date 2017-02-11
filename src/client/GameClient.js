@@ -2,7 +2,7 @@ const io = require('socket.io-client')
 const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
 const capitalize = require('capitalize')
-const { PLAYER_RADIUS, COIN_RADIUS, WORLD_X, WORLD_Y } = require('../common/constants.js')
+const { WORLD_X, WORLD_Y } = require('../common/constants.js')
 const { calculatePlayerAcceleration } = require('../common/utils.js')
 
 const serverEventsNames = [
@@ -135,10 +135,13 @@ class GameClient {
       // ctx.shadowBlur += 0.25
       // ctx.shadowColor = 'rgba(0,0,0,0.6)'
 
-      ctx.fillStyle = 'purple' // blueviolet
-      ctx.beginPath()
-      ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
-      ctx.fill()
+      var zergling = document.getElementById('zergling')
+      ctx.drawImage(zergling, coin.x, coin.y)
+
+      // ctx.fillStyle = 'purple' // blueviolet
+      // ctx.beginPath()
+      // ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
+      // ctx.fill()
     }
 
     // render box
@@ -158,26 +161,31 @@ class GameClient {
 
     // render players
     for (let playerId in this.players) {
-      const { color, x, y, score } = this.players[playerId]
+      const { x, y, score } = this.players[playerId]
       ctx.save()
       // ctx.translate(x, y)
 
       // ctx.shadowBlur += 0.25
       // ctx.shadowColor = 'rgba(0,0,0,0.6)'
 
-      ctx.fillStyle = color
+      /* ctx.fillStyle = color
       ctx.beginPath()
       ctx.arc(x, y, PLAYER_RADIUS, 0, 2 * Math.PI)
-      ctx.fill()
+      ctx.fill() */
+
+      var zealot = document.getElementById('zealot')
+      ctx.drawImage(zealot, x, y)
+
       if (playerId === this.myPlayerId) {
-        ctx.beginPath()
-        ctx.arc(x, y, PLAYER_RADIUS, 0, 2 * Math.PI)
+        /* ctx.beginPath()
+        ctx.arc(x, y, PLAYER_RADIUS, 0, 2 * Math.PI) */
+        ctx.drawImage(zealot, x, y)
         ctx.stroke()
       }
       ctx.fillStyle = '#fff'
       ctx.textAlign = 'center'
       ctx.font = '20px Helvetica'
-      ctx.fillText(score, x, y + 7)
+      ctx.fillText(score, x + 28, y + 67)
       ctx.restore()
     }
 
