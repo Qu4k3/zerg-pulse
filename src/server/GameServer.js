@@ -1,12 +1,13 @@
 const randomColor = require('randomcolor')
+const { calculatePlayerAcceleration } = require('../common/utils.js')
+
 const {
-  ACCEL,
-  COIN_RADIUS,
   PLAYER_RADIUS,
-  COIN_SPAWN_DELAY,
+  COIN_RADIUS,
   WORLD_X,
-  WORLD_Y
-} = require('./constants.js')
+  WORLD_Y,
+  COIN_SPAWN_DELAY
+} = require('../common/constants.js')
 
 class GameServer {
   constructor (io, gameId) {
@@ -51,7 +52,14 @@ class GameServer {
     }
     this.players[socket.id] = player
 
-    socket.emit('world:init', this.players, this.coins, socket.id)
+    socket.emit(
+      'gameInit',
+      socket.id,
+      {
+        players: this.players,
+        coins: this.coins
+      }
+    )
 
     // so that the new players appears on other people's screen
     this.onPlayerMoved(socket, inputs)
@@ -63,6 +71,7 @@ class GameServer {
     const player = this.players[socket.id]
     player.timestamp = Date.now()
     player.inputs = inputs
+    calculatePlayerAcceleration(player)
     this.io.to(this.roomId).emit('playerMoved', player)
   }
 
@@ -74,21 +83,21 @@ class GameServer {
 
   logic () {
     const now = Date.now()
-    const delta = now - this.lastLogic
-    this.lastLogic = now
 
-    const vInc = ACCEL * delta
     for (let playerId in this.players) {
       const player = this.players[playerId]
-      const { inputs } = player
-      if (inputs.LEFT_ARROW) player.vx -= vInc
-      if (inputs.RIGHT_ARROW) player.vx += vInc
-      if (inputs.UP_ARROW) player.vy -= vInc
-      if (inputs.DOWN_ARROW) player.vy += vInc
+      const { x, y, vx, vy, ax, ay } = player
 
-      player.x += player.vx * delta
-      player.y += player.vy * delta
+      const delta = now - player.timestamp
+      const delta2 = delta ** 2
 
+      player.x = x + (vx * delta) + (ax * delta2 / 2)
+      player.y = y + (vy * delta) + (ay * delta2 / 2)
+      player.vx = vx + (ax * delta)
+      player.vy = vy + (ay * delta)
+      player.timestamp = now
+
+      // player <-> coins collision detection
       for (let coinId in this.coins) {
         const coin = this.coins[coinId]
         const dist = Math.abs(player.x - coin.x) + Math.abs(player.y - coin.y)
@@ -99,17 +108,18 @@ class GameServer {
           this.io.to(this.roomId).emit('coinCollected', player.id, coinId)
         }
       }
+    }
 
-      if (Date.now() - this.lastCoinSpawn > COIN_SPAWN_DELAY) {
-        const coin = {
-          id: this.nextCoinId++,
-          x: Math.random() * WORLD_X,
-          y: Math.random() * WORLD_Y
-        }
-        this.coins[coin.id] = coin
-        this.lastCoinSpawn = Date.now()
-        this.io.to(this.roomId).emit('coinSpawned', coin)
+    // spawn coin every x seconds
+    if (Date.now() - this.lastCoinSpawn > COIN_SPAWN_DELAY) {
+      const coin = {
+        id: this.nextCoinId++,
+        x: Math.random() * WORLD_X,
+        y: Math.random() * WORLD_Y
       }
+      this.coins[coin.id] = coin
+      this.lastCoinSpawn = Date.now()
+      this.io.to(this.roomId).emit('coinSpawned', coin)
     }
   }
 }

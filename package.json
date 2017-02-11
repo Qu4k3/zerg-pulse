@@ -5,11 +5,11 @@
   "main": "src/server.js",
   "scripts": {
     "prebuild": "npm run test",
-    "build": "browserify src/client.js -o public/bundle.js",
+    "build": "browserify src/client/index.js -o public/bundle.js",
     "watch": "chokidar 'src/**/*.js' -c 'npm run build'",
     "test": "standard src/**/*.js",
     "postinstall": "npm run build",
-    "start": "node src/server.js"
+    "start": "node src/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +23,7 @@
   "homepage": "https://github.com/Qu4k3/zerg-pulse#readme",
   "dependencies": {
     "@dasilvacontin/keyboard": "^1.0.2",
+    "capitalize": "^1.0.0",
     "deep-equal": "^1.0.1",
     "express": "^4.14.1",
     "randomcolor": "^0.4.4",

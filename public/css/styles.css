@@ -21,6 +21,7 @@ html, body {
     background-color: rgba(0, 0, 0, 0.6);
 
     border-radius: 3px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
 }
 
 #progressBar1 {
@@ -31,6 +32,7 @@ html, body {
     height: 25px;
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 3px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
 }
 
 #progressBar2 {
@@ -41,10 +43,11 @@ html, body {
     height: 25px;
     background-color: rgba(0, 0, 0, 0.6);
     border-radius: 3px;
+    box-shadow: 2px 2px 3px rgba(0,0,0,0.3);
 }
 
 #actionsStatus {
-    width: 50%;
+    width: 65%;
     height: 100%;
     background-color: mediumseagreen;
     border-radius: 3px;
