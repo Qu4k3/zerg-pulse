@@ -2,7 +2,10 @@ const io = require('socket.io-client')
 const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
 const capitalize = require('capitalize')
-const { WORLD_X, WORLD_Y } = require('../common/constants.js')
+const {
+   WORLD_X,
+   WORLD_Y
+} = require('../common/constants.js')
 const { calculatePlayerAcceleration } = require('../common/utils.js')
 
 const serverEventsNames = [
@@ -91,7 +94,7 @@ class GameClient {
     }
 
     if (!deepEqual(myInputs, oldInputs)) {
-      this.socket.emit('move', myInputs)
+      this.socket.emit('playerMove', myInputs)
 
       // update our local player' inputs aproximately when
       // the server takes them into account
@@ -138,10 +141,10 @@ class GameClient {
       var zergling = document.getElementById('zergling')
       ctx.drawImage(zergling, coin.x, coin.y)
 
-      // ctx.fillStyle = 'purple' // blueviolet
-      // ctx.beginPath()
-      // ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
-      // ctx.fill()
+      /* ctx.fillStyle = 'purple' // blueviolet
+      ctx.beginPath()
+      ctx.arc(coin.x, coin.y, COIN_RADIUS, 0, 2 * Math.PI)
+      ctx.fill() */
     }
 
     // render box
@@ -162,7 +165,7 @@ class GameClient {
     // render players
     for (let playerId in this.players) {
       const { x, y, score } = this.players[playerId]
-      ctx.save()
+      // ctx.save()
       // ctx.translate(x, y)
 
       // ctx.shadowBlur += 0.25
@@ -177,15 +180,16 @@ class GameClient {
       ctx.drawImage(zealot, x, y)
 
       if (playerId === this.myPlayerId) {
-        /* ctx.beginPath()
-        ctx.arc(x, y, PLAYER_RADIUS, 0, 2 * Math.PI) */
+        // ctx.strokeRect(-HALF_EDGE, -HALF_EDGE, PLAYER_EDGE, PLAYER_EDGE)
         ctx.drawImage(zealot, x, y)
         ctx.stroke()
       }
+
+      // render score inside players
       ctx.fillStyle = '#fff'
       ctx.textAlign = 'center'
       ctx.font = '20px Helvetica'
-      ctx.fillText(score, x + 28, y + 67)
+      ctx.fillText(score, x + 25, y + 67)
       ctx.restore()
     }
 

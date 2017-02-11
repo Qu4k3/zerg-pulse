@@ -2,7 +2,7 @@ const randomColor = require('randomcolor')
 const { calculatePlayerAcceleration } = require('../common/utils.js')
 
 const {
-  PLAYER_RADIUS,
+  PLAYER_EDGE,
   COIN_RADIUS,
   WORLD_X,
   WORLD_Y,
@@ -101,7 +101,7 @@ class GameServer {
       for (let coinId in this.coins) {
         const coin = this.coins[coinId]
         const dist = Math.abs(player.x - coin.x) + Math.abs(player.y - coin.y)
-        const radiusSum = COIN_RADIUS + (PLAYER_RADIUS)
+        const radiusSum = COIN_RADIUS + (PLAYER_EDGE / 2)
         if (radiusSum > dist) {
           delete this.coins[coinId]
           player.score++
@@ -110,7 +110,7 @@ class GameServer {
       }
     }
 
-    // spawn coin every x seconds
+    // spawn coin every second
     if (Date.now() - this.lastCoinSpawn > COIN_SPAWN_DELAY) {
       const coin = {
         id: this.nextCoinId++,
