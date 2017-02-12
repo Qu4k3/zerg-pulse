@@ -32,4 +32,6 @@ npm start
 
 ## Credits
 Sprites by [Searhere](http://searhere.deviantart.com)
+StarCraft II soundtrack
+
 Base code by [dasilvacontin](https://github.com/dasilvacontin)
