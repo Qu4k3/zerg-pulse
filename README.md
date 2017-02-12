@@ -1,4 +1,4 @@
-# ![alt tag](https://github.com/Qu4k3/zerg-pulse/blob/master/public/img/zealot.png) Zerg Pulse ! [alt tag](https://github.com/Qu4k3/zerg-pulse/blob/master/public/img/zergling.png)
+# ![alt tag](https://github.com/Qu4k3/zerg-pulse/blob/master/public/img/zealot.png) Zerg Pulse ![alt tag](https://github.com/Qu4k3/zerg-pulse/blob/master/public/img/zergling.png)
 Multiplayer web game, enter the website to start the game, or create a room website-url/room-name 
 
 * Arrows ``↑ ← → ↓``
