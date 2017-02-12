@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
     <meta name="theme-color" content="mediumpurple">
 
-    <link rel="shortcut icon" href="./img/zerg.png">
+    <link rel="shortcut icon" href="./img/zergling.png">
 
     <link href="./css/styles.css" rel="stylesheet">
     
@@ -22,17 +22,15 @@
 
     <section id="progressBar1">
         <section id="label">PULSE</section>
-        <section id="actionsStatus"></section>
+        <section id="pulseStatus"></section>
     </section>
 
     <section id="progressBar2">
         <section id="label">INVULNERABLE</section>
         <section id="abilityStatus"></section>
-    </section>    
+    </section>
     
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="bundle.js"></script>
-
+    
     <section style="display: none;">
         <img id="zergling" src="./img/zerg-small.png">
     </section>
@@ -40,6 +38,12 @@
     <section style="display: none;">
         <img id="zealot" src="./img/zealot.png">
     </section>
+
+
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./socket.io/socket.io.js"></script>
+    <script src="bundle.js"></script>
     
 </body>
 </html>

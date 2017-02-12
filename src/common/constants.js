@@ -3,7 +3,7 @@ module.exports = {
   COIN_RADIUS: 12.5,
   PLAYER_EDGE: 50,
 
-  COIN_SPAWN_DELAY: 200,
+  COIN_SPAWN_DELAY: 100,
 
   WORLD_X: 2500,
   WORLD_Y: 2500
