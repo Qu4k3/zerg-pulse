@@ -3,8 +3,8 @@ const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
 const capitalize = require('capitalize')
 const {
-   WORLD_X,
-   WORLD_Y
+  WORLD_X,
+  WORLD_Y
 } = require('../common/constants.js')
 const { calculatePlayerAcceleration } = require('../common/utils.js')
 
@@ -101,29 +101,37 @@ class GameClient {
       const frozenInputs = Object.assign({}, myInputs)
       setTimeout(() => {
         const myPlayer = this.players[this.myPlayerId]
+        const now = Date.now()
+        const serverNow = now + this.clockDiff
+        this.updatePlayer(myPlayer, serverNow)
         myPlayer.inputs = frozenInputs
         calculatePlayerAcceleration(myPlayer)
       }, this.ping)
     }
   }
 
+  updatePlayer (player, targetTimestamp) {
+    // dead reckoning
+    const { x, y, vx, vy, ax, ay } = player
+
+    const delta = targetTimestamp - player.timestamp
+    const delta2 = Math.pow(delta, 2)
+
+    player.x = x + (vx * delta) + (ax * delta2 / 2)
+    player.y = y + (vy * delta) + (ay * delta2 / 2)
+    player.vx = vx + (ax * delta)
+    player.vy = vy + (ay * delta)
+    player.timestamp = targetTimestamp
+  }
+
   logic () {
     const now = Date.now()
+    const serverNow = now + this.clockDiff
     this.updateInputs()
 
     for (let playerId in this.players) {
       const player = this.players[playerId]
-      const { x, y, vx, vy, ax, ay } = player
-
-      const delta = (now + this.clockDiff) - player.timestamp
-      const delta2 = Math.pow(delta, 2)
-
-      // dead reckoning
-      player.x = x + (vx * delta) + (ax * delta2 / 2)
-      player.y = y + (vy * delta) + (ay * delta2 / 2)
-      player.vx = vx + (ax * delta)
-      player.vy = vy + (ay * delta)
-      player.timestamp = now + this.clockDiff
+      this.updatePlayer(player, serverNow)
     }
   }
 
@@ -150,7 +158,7 @@ class GameClient {
     // render box
     /* for (let boxId in game.boxs) {
       const box = game.boxs[boxId]
-      ctx.fillStyle = 'deepskyblue'
+      ctx.fillStyle = 'deepskyblue' // color
       ctx.beginPath()
       ctx.moveTo(0, 5)
       ctx.lineTo(10, 0)

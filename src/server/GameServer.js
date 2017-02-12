@@ -4,9 +4,9 @@ const { calculatePlayerAcceleration } = require('../common/utils.js')
 const {
   PLAYER_EDGE,
   COIN_RADIUS,
+  COIN_SPAWN_DELAY,
   WORLD_X,
-  WORLD_Y,
-  COIN_SPAWN_DELAY
+  WORLD_Y
 } = require('../common/constants.js')
 
 class GameServer {
@@ -45,9 +45,12 @@ class GameServer {
       y: Math.random() * WORLD_Y,
       vx: 0,
       vy: 0,
+      ax: 0,
+      ay: 0,
       color: randomColor(),
       id: socket.id,
       score: 0,
+      timestamp: Date.now(),
       inputs
     }
     this.players[socket.id] = player
@@ -68,10 +71,14 @@ class GameServer {
   onPlayerMoved (socket, inputs) {
     console.log(inputs)
     console.log(`${new Date()}: ${socket.id} moved`)
+
     const player = this.players[socket.id]
-    player.timestamp = Date.now()
+    const now = Date.now()
+    this.updatePlayer(player, now)
+
     player.inputs = inputs
     calculatePlayerAcceleration(player)
+
     this.io.to(this.roomId).emit('playerMoved', player)
   }
 
@@ -81,21 +88,26 @@ class GameServer {
     socket.to(this.roomId).broadcast.emit('playerDisconnected', socket.id)
   }
 
+  updatePlayer (player, targetTimestamp) {
+    const { x, y, vx, vy, ax, ay } = player
+
+    const delta = targetTimestamp - player.timestamp
+    const delta2 = Math.pow(delta, 2)
+
+    player.x = x + (vx * delta) + (ax * delta2 / 2)
+    player.y = y + (vy * delta) + (ay * delta2 / 2)
+    player.vx = vx + (ax * delta)
+    player.vy = vy + (ay * delta)
+    player.timestamp = targetTimestamp
+  }
+
   logic () {
     const now = Date.now()
 
     for (let playerId in this.players) {
       const player = this.players[playerId]
-      const { x, y, vx, vy, ax, ay } = player
-
-      const delta = now - player.timestamp
-      const delta2 = delta ** 2
-
-      player.x = x + (vx * delta) + (ax * delta2 / 2)
-      player.y = y + (vy * delta) + (ay * delta2 / 2)
-      player.vx = vx + (ax * delta)
-      player.vy = vy + (ay * delta)
-      player.timestamp = now
+      console.log(playerId, player)
+      this.updatePlayer(player, now)
 
       // player <-> coins collision detection
       for (let coinId in this.coins) {
