@@ -52,7 +52,7 @@ html, body {
     background-color: mediumseagreen;
     border-radius: 3px;
 
-    transition: width 7s linear;
+    transition: width 5s linear;
 }
 
 #abilityStatus {
@@ -61,7 +61,7 @@ html, body {
     background-color: darkorange;
     border-radius: 3px;
 
-    transition: width 7s linear;
+    transition: width 5s linear;
 }
 
 #label {
