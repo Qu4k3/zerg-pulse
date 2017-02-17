@@ -41,8 +41,8 @@ class GameServer {
     }
 
     const player = {
-      x: Math.random() * WORLD_X,
-      y: Math.random() * WORLD_Y,
+      x: Math.random() * 1300,
+      y: Math.random() * 720,
       vx: 0,
       vy: 0,
       ax: 0,
