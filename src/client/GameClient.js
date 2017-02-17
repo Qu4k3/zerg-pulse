@@ -2,10 +2,10 @@ const io = require('socket.io-client')
 const kbd = require('@dasilvacontin/keyboard')
 const deepEqual = require('deep-equal')
 const capitalize = require('capitalize')
-const {
-  WORLD_X,
-  WORLD_Y
-} = require('../common/constants.js')
+/* const {
+  // WORLD_X,
+  // WORLD_Y
+} = require('../common/constants.js') */
 const { calculatePlayerAcceleration } = require('../common/utils.js')
 
 const serverEventsNames = [
@@ -137,7 +137,7 @@ class GameClient {
 
   render (canvas, ctx) {
     ctx.fillStyle = '#778899'
-    ctx.fillRect(0, 0, WORLD_X, WORLD_Y)
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight)
 
     // render coins
     for (let coinId in this.coins) {
